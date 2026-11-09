@@ -1,0 +1,38 @@
+DIU I&E WORKSPACE — CLEAN START
+
+This is a reconstructed complete project, not a patch. It includes the original
+server entrypoints and workspace routes plus the latest email/password/reset
+changes. It deliberately excludes node_modules, .env, .env.save, and macOS
+metadata.
+
+IMPORTANT SECURITY NOTE
+The ZIP you most recently uploaded contained .env and .env.save files. Treat
+those old credentials as exposed. Do not reuse them. Create a new Neon project,
+use a new database password/connection string, and generate a new SESSION_SECRET.
+Delete or rotate the old Neon credentials after you have confirmed the new
+project works. Do not upload any .env file to GitHub.
+
+CLEAN INSTALL
+1. Extract this ZIP to a NEW folder, e.g. ~/Documents/DIU-IE-Workspace-Clean.
+2. Do not merge it into the damaged Workspace-main folder.
+3. Copy .env.example to .env.
+4. Edit .env with TextEdit (Plain Text) and add your NEW Neon pooled connection
+   string and a new SESSION_SECRET.
+5. npm install
+6. npm run db:setup
+7. npm run admin:create
+8. npm run dev
+9. Visit http://localhost:3000 and http://localhost:3000/api/health
+
+FIRST ADMIN
+The admin:create command creates the first Admin only. It accepts any valid
+email address; @diu.edu.bd is recommended but not required. Password must be
+8-128 characters and contain uppercase, lowercase, a number and a special
+character.
+
+FORGOT PASSWORD
+For local development, without Resend variables, request a reset on the site
+and copy the one-time link printed in the Terminal running npm run dev.
+For production, configure RESEND_API_KEY, MAIL_FROM and APP_BASE_URL.
+
+NEVER COMMIT .env OR SECRETS.

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Sign in to the Department of Innovation and Entrepreneurship workspace at Daffodil International University."
+    />
+    <title>Sign in | Department Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="login-page">
+      <header class="department-brand">
+        <img
+          class="university-logo"
+          src="Images/diuLogo.0bonhok0-b0tx.png"
+          alt="Daffodil International University logo"
+        />
+        <span class="brand-divider" aria-hidden="true"></span>
+        <div class="department-wordmark">
+          <span class="department-mark" aria-hidden="true">DIE</span>
+          <p>Department of<br /><strong>Innovation &amp; Entrepreneurship</strong></p>
+        </div>
+      </header>
+
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="login-emblem" aria-hidden="true"><span>D<em>I</em>E</span></div>
+        <div class="card-heading">
+          <p class="eyebrow">Department workspace</p>
+          <h1 id="login-title">Sign in to your<br />department account</h1>
+          <p id="step-description">Enter your email address to continue. A DIU email is recommended.</p>
+        </div>
+
+        <button class="signin-pill" id="signin-pill">Sign In</button>
+
+        <form id="login-form" hidden novalidate>
+          <div class="field" id="identifier-field">
+            <input
+              id="identifier"
+              name="identifier"
+              type="email"
+              placeholder="name@diu.edu.bd"
+              autocomplete="username"
+              aria-label="Email address"
+              aria-describedby="identifier-help"
+              required
+            />
+            <p id="identifier-help" class="field-help" data-kind="hint">A @diu.edu.bd address is recommended, but other valid email addresses are accepted.</p>
+            <p class="create-account" id="create-account">
+              <a href="#create-account">Create your account</a>
+            </p>
+          </div>
+
+          <div class="field password-field" id="password-field" hidden>
+            <div class="password-label-row">
+              <label for="password">Password</label>
+              <button class="text-button" id="change-identifier" type="button">Change email</button>
+            </div>
+            <div class="password-input-wrap">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <button
+                class="password-toggle"
+                id="password-toggle"
+                type="button"
+                aria-label="Show password"
+                aria-pressed="false"
+              >
+                <svg aria-hidden="true" viewBox="0 0 20 20">
+                  <path d="M2 10s3-5 8-5 8 5 8 5-3 5-8 5-8-5-8-5Z"></path>
+                  <circle cx="10" cy="10" r="2"></circle>
+                  <path class="eye-slash" d="m3 3 14 14"></path>
+                </svg>
+                <span id="password-toggle-label">Show</span>
+              </button>
+            </div>
+            <a class="forgot-password" href="#forgot-password">Forgot password?</a>
+          </div>
+
+          <button class="primary-button" id="submit-button" type="submit">
+            <span id="submit-label">Continue</span>
+            <svg aria-hidden="true" viewBox="0 0 20 20">
+              <path d="M4 10h11M10 5l5 5-5 5"></path>
+            </svg>
+          </button>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <form id="request-account-form" class="account-flow" hidden novalidate>
+          <label for="request-name">Full name</label>
+          <input id="request-name" required autocomplete="name" placeholder="Your full name" />
+          <label for="request-email">Email address</label>
+          <input id="request-email" type="email" required autocomplete="email" placeholder="name@diu.edu.bd" />
+          <p class="field-help" data-kind="hint">A @diu.edu.bd address is recommended, but other valid email addresses are accepted.</p>
+          <label for="request-phone">WhatsApp number <span>(optional)</span></label>
+          <input id="request-phone" type="tel" autocomplete="tel" placeholder="+880 1XXX-XXXXXX" />
+          <button class="primary-button" type="submit">Request an account</button>
+          <button class="text-button account-back" id="request-back" type="button">Back to sign in</button>
+          <p id="request-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <form id="recovery-form" class="account-flow" hidden novalidate>
+          <label for="recovery-email">Email address</label>
+          <input id="recovery-email" type="email" required autocomplete="email" placeholder="name@diu.edu.bd" />
+          <p class="field-help" data-kind="hint">Use the email address linked to your workspace account.</p>
+          <button class="primary-button" type="submit">Send recovery instructions</button>
+          <button class="text-button account-back" id="recovery-back" type="button">Back to sign in</button>
+          <p id="recovery-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="security-note">Sign in with your email address and a separate department workspace password. A @diu.edu.bd address is recommended.</p>
+      </section>
+
+      <footer class="page-footer">Daffodil International University <span aria-hidden="true">·</span> Secure department workspace</footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "diu-ie-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch server/src/server.js",
+    "start": "node server/src/server.js",
+    "db:setup": "node server/src/setup-db.js",
+    "admin:create": "node server/src/create-admin.js"
+  },
+  "dependencies": {
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.7.3",
+    "express-session": "^1.19.0",
+    "pg": "^8.16.3"
+  }
+}

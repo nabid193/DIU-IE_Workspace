@@ -1,0 +1,18 @@
+.invitation-card { padding-top: 68px; }
+.invitation-card #accept-invitation-form { width: min(100%, 430px); margin: 28px auto 0; text-align: left; }
+.invitation-card #accept-invitation-form[hidden] { display: none; }
+.invitation-card .primary-button { width: 100%; }
+#invitation-details { color: #a2a2a8; line-height: 1.6; }
+#invitation-message { max-width: 430px; margin: 14px auto 0; }
+#invitation-message[data-kind="success"] { color: #8bd2a8; }
+#invitation-message[data-kind="error"] { color: #ff9b91; }
+
+.password-requirements {
+  margin: 8px 0 12px;
+  padding-left: 19px;
+  color: #a2a2a8;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.password-requirements li { padding-left: 2px; }
+.reset-success-link { display: inline-block; margin-top: 16px; color: #8dc5ff; font-size: 13px; }

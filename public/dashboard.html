@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A task workspace for the Department of Innovation and Entrepreneurship at DIU." />
+    <title>My Work | Department Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <script type="module" src="dashboard.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="dashboard.html" aria-label="Department workspace home">
+          <img class="diu-crest" src="Images/images.png" alt="" />
+          <img class="diu-wordmark" src="Images/diuLogo.0bonhok0-b0tx.png" alt="Daffodil International University" />
+          <span class="brand-divider" aria-hidden="true"></span>
+          <span class="department-name">Department of<br /><strong>Innovation &amp; Entrepreneurship</strong></span>
+        </a>
+
+        <div class="account-actions">
+          <div class="profile-chip" id="profile-chip">
+            <span class="avatar" id="profile-avatar" aria-hidden="true">NR</span>
+            <span class="profile-copy"><strong id="profile-name">Your account</strong><small id="profile-role">Role</small></span>
+          </div>
+          <button class="sign-out-button" type="button" id="sign-out-button">Sign out</button>
+        </div>
+      </header>
+
+      <nav class="workspace-nav" aria-label="Workspace sections">
+        <button class="workspace-nav__button is-active" type="button" data-page="work" aria-current="page">My work</button>
+        <button class="workspace-nav__button" type="button" data-page="projects">Projects</button>
+        <button class="workspace-nav__button" type="button" data-page="notifications">Notifications <span id="notification-badge" hidden>0</span></button>
+        <button class="workspace-nav__button" type="button" data-page="team" data-admin-page hidden>Team</button>
+        <button class="workspace-nav__button" type="button" data-page="settings">Settings</button>
+      </nav>
+
+      <main class="dashboard-main app-page" id="page-work">
+        <section class="welcome-row" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow" id="workspace-eyebrow">Your workspace</p>
+            <h1 id="page-title">My Work</h1>
+            <p class="welcome-copy">Keep track of what's moving and what needs your attention.</p>
+          </div>
+          <div class="today-chip"><span class="today-dot" aria-hidden="true"></span><span id="workspace-view-label">Personal task view</span></div>
+        </section>
+
+        <section class="summary-grid" aria-label="Task summary">
+          <article class="summary-card summary-card--primary">
+            <div class="summary-icon summary-icon--blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5h11M8 12h11M8 19h11M4 5h.01M4 12h.01M4 19h.01" /></svg>
+            </div>
+            <div><p>Open tasks</p><strong id="open-count">0</strong></div>
+            <span class="summary-footnote" id="open-footnote">Assigned to you</span>
+          </article>
+          <article class="summary-card">
+            <div class="summary-icon summary-icon--amber" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg>
+            </div>
+            <div><p>Due soon</p><strong id="due-count">0</strong></div>
+            <span class="summary-footnote">Coming up this week</span>
+          </article>
+          <article class="summary-card">
+            <div class="summary-icon summary-icon--green" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg>
+            </div>
+            <div><p>Completed</p><strong id="done-count">0</strong></div>
+            <span class="summary-footnote">Good progress</span>
+          </article>
+        </section>
+
+        <section class="tasks-panel" aria-labelledby="tasks-heading">
+          <div class="tasks-panel__header">
+            <div>
+              <h2 id="tasks-heading">Assigned to you</h2>
+              <p id="tasks-subtext">Tasks the department has assigned to your account.</p>
+            </div>
+            <div class="panel-controls">
+              <label class="search-box">
+                <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.7" cy="8.7" r="5.7"/><path d="m13 13 4 4"/></svg>
+                <input id="task-search" type="search" placeholder="Search tasks" aria-label="Search tasks" />
+              </label>
+              <button class="new-task-btn" type="button" id="new-task-btn">
+                <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></svg>
+                New task
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Filter tasks by status">
+            <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All <span id="count-all">0</span></button>
+            <button class="filter-button" type="button" data-filter="todo" aria-pressed="false">To do <span id="count-todo">0</span></button>
+            <button class="filter-button" type="button" data-filter="in-progress" aria-pressed="false">In progress <span id="count-in-progress">0</span></button>
+            <button class="filter-button" type="button" data-filter="blocked" aria-pressed="false">Blocked <span id="count-blocked">0</span></button>
+            <button class="filter-button" type="button" data-filter="done" aria-pressed="false">Done <span id="count-done">0</span></button>
+          </div>
+
+          <div class="task-list" id="task-list" aria-live="polite"></div>
+          <p class="empty-state" id="empty-state" hidden>No tasks match this view. Try another filter or search term.</p>
+        </section>
+
+      </main>
+
+      <main class="dashboard-main app-page" id="page-projects" hidden>
+        <section class="page-intro page-intro--row"><div><p class="eyebrow">Department workspace</p><h1>Projects</h1><p>Browse initiatives and see the work connected to each one.</p></div><button class="btn-submit" id="new-project-button" type="button" hidden>Create project</button></section>
+        <section id="project-grid" class="project-grid" aria-label="Department projects"></section>
+        <section id="project-detail" class="project-detail" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Project tasks</p><h2 id="project-detail-title"></h2></div><button class="btn-cancel" id="project-back" type="button">All projects</button></div>
+          <div id="project-task-list" class="project-task-list"></div>
+        </section>
+      </main>
+
+      <main class="dashboard-main app-page" id="page-notifications" hidden>
+        <section class="page-intro page-intro--row"><div><p class="eyebrow">Stay in the loop</p><h1>Notifications</h1><p>Assignments, comments, and deadline reminders for your account.</p></div><button class="btn-cancel" type="button" id="mark-all-read">Mark all as read</button></section>
+        <section class="notification-panel"><div id="notification-list" class="notification-list" aria-live="polite"></div><p class="empty-state" id="notifications-empty" hidden>You’re all caught up.</p></section>
+      </main>
+
+      <main class="dashboard-main app-page" id="page-team" data-admin-page hidden>
+        <section class="page-intro"><p class="eyebrow">Workspace administration</p><h1>Team</h1><p>Invite department members and assign their workspace role. They appear in this list after accepting their invitation.</p></section>
+        <section class="admin-invite-panel">
+          <div><h2>Invite a team member</h2><p>Create a one-use setup link. You’ll need to send it to them yourself.</p></div>
+          <form id="invite-form" class="invite-form" novalidate>
+            <label><span>Name</span><input id="invite-name" required placeholder="Full name" /></label>
+            <label><span>Email address</span><input id="invite-email" type="email" required placeholder="name@diu.edu.bd" /><small class="field-hint">A @diu.edu.bd address is recommended, but other valid email addresses are accepted.</small></label>
+            <label><span>Role</span><select id="invite-role"><option>Member</option><option>Head</option><option>Admin</option></select></label>
+            <button class="btn-submit" type="submit">Add person</button>
+            <p class="field-error" id="invite-error" role="alert" hidden></p>
+            <div class="invite-result" id="invite-result" hidden>
+              <label for="invite-url">One-time invitation link</label>
+              <div class="invite-link-row"><input id="invite-url" readonly /><button type="button" id="copy-invite-link">Copy link</button></div>
+            </div>
+          </form>
+        </section>
+        <section class="team-panel"><div class="section-heading"><div><h2>Department accounts</h2><p>Account records and roles are loaded from PostgreSQL.</p></div></div><div class="table-wrap"><table class="team-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead><tbody id="team-table-body"></tbody></table></div></section>
+      </main>
+
+      <main class="dashboard-main app-page" id="page-settings" hidden>
+        <section class="page-intro"><p class="eyebrow">Your account</p><h1>Settings</h1><p>Manage your account and notification preferences.</p></section>
+        <form id="settings-form" class="settings-grid">
+          <section class="settings-card"><h2>Profile</h2><p>Your university account details.</p><label><span>Name</span><input id="settings-name" readonly /></label><label><span>Email address</span><input id="settings-email" type="email" readonly /></label><label><span>WhatsApp number</span><input id="settings-phone" type="tel" placeholder="+880 1XXX-XXXXXX" /></label></section>
+          <section class="settings-card"><h2>Notifications</h2><p>Choose where you would like to receive updates.</p><label class="toggle-row"><span><strong>WhatsApp updates</strong><small>Assignments, status changes, and due date reminders.</small></span><input id="settings-whatsapp" type="checkbox" /></label><p class="field-hint">Your WhatsApp preference is saved. Message delivery needs a WhatsApp Business provider connection.</p><button class="btn-submit" type="submit">Save preferences</button><p id="settings-message" class="form-message" role="status" aria-live="polite"></p></section>
+        </form>
+      </main>
+
+      <footer class="dashboard-footer">Department of Innovation &amp; Entrepreneurship <span aria-hidden="true">·</span> Daffodil International University</footer>
+    </div>
+
+    <!-- ── New task dialog ───────────────────────────────────────────── -->
+    <dialog id="new-task-dialog" aria-labelledby="new-task-title">
+      <div class="dialog-inner">
+        <header class="dialog-header">
+          <h2 id="new-task-title" class="dialog-title">Create a task</h2>
+          <button class="dialog-close" type="button" id="new-task-close" aria-label="Close">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5 5 15"/></svg>
+          </button>
+        </header>
+        <div class="dialog-body">
+          <form id="new-task-form" novalidate>
+            <div class="task-form">
+
+              <div class="form-field form-field--full">
+                <label for="field-title">Title <span aria-hidden="true">*</span></label>
+                <input id="field-title" type="text" placeholder="What needs to be done?" required />
+                <p class="field-error" id="title-error" hidden></p>
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="field-description">Description</label>
+                <textarea id="field-description" rows="3" placeholder="Add more context…"></textarea>
+              </div>
+
+              <div class="form-field">
+                <label for="field-assignee">Assignee</label>
+                <select id="field-assignee">
+                <option value="" selected disabled>Choose a person</option>
+                </select>
+                <p class="field-error" id="assignee-error" role="alert" hidden></p>
+              </div>
+
+              <div class="form-field">
+                <label for="field-project">Project</label>
+                <select id="field-project">
+                  <option value="">No project</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="field-due">Due date</label>
+                <input id="field-due" type="date" />
+              </div>
+
+              <div class="form-field">
+                <label for="field-priority">Priority</label>
+                <select id="field-priority">
+                  <option value="Normal">Normal</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="field-visibility">Visibility</label>
+                <select id="field-visibility">
+                  <option value="Department">Department</option>
+                  <option value="Selected people">Selected people</option>
+                </select>
+              </div>
+
+              <!-- People picker — shown only when visibility = Selected people -->
+              <div class="form-field form-field--full" id="people-picker-row" hidden>
+                <label>Who can see this task</label>
+                <div id="field-people" class="people-grid" role="group" aria-label="Select people who can see this task"></div>
+                <p class="field-hint">Select at least one viewer. The assignee will always have access.</p>
+                <p class="field-error" id="people-error" role="alert" hidden></p>
+              </div>
+
+            </div>
+            <div class="form-actions">
+              <button class="btn-cancel" type="button" id="new-task-cancel">Cancel</button>
+              <button class="btn-submit" id="new-task-submit" type="submit">Add task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- ── Task detail dialog ────────────────────────────────────────── -->
+    <dialog id="task-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-inner">
+        <header class="dialog-header">
+          <div class="dialog-title-row">
+            <span class="dialog-status-dot" id="dialog-status-dot" aria-hidden="true"></span>
+            <h2 id="dialog-title" class="dialog-title"></h2>
+          </div>
+          <button class="dialog-edit" id="task-edit" type="button" hidden>Edit task</button>
+          <button class="dialog-close" id="dialog-close" type="button" aria-label="Close task details">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5 5 15"/></svg>
+          </button>
+        </header>
+        <div class="dialog-body">
+          <p class="dialog-description" id="dialog-description"></p>
+          <dl class="dialog-meta">
+            <div class="dialog-meta-row">
+              <dt>Assignee</dt>
+              <dd id="dialog-assignee"></dd>
+            </div>
+            <div class="dialog-meta-row">
+              <dt>Project</dt>
+              <dd id="dialog-project"></dd>
+            </div>
+            <div class="dialog-meta-row">
+              <dt>Due date</dt>
+              <dd id="dialog-due"></dd>
+            </div>
+            <div class="dialog-meta-row">
+              <dt>Priority</dt>
+              <dd id="dialog-priority"></dd>
+            </div>
+            <div class="dialog-meta-row">
+              <dt>Status</dt>
+              <dd id="dialog-status"></dd>
+            </div>
+            <div class="dialog-meta-row">
+              <dt>Visibility</dt>
+              <dd id="dialog-visibility"></dd>
+            </div>
+          </dl>
+
+          <div class="status-editor" id="status-editor">
+            <label for="status-select">Update status</label>
+            <div class="status-editor-row">
+              <select id="status-select">
+                <option value="todo">To do</option>
+                <option value="in-progress">In progress</option>
+                <option value="blocked">Blocked</option>
+                <option value="done">Done</option>
+              </select>
+              <button type="button" id="status-save">Save changes</button>
+            </div>
+          </div>
+
+          <!-- ── Activity & comments ──────────────────────────── -->
+          <section class="activity-section" aria-labelledby="activity-heading">
+            <h3 id="activity-heading" class="activity-heading">Activity</h3>
+
+            <ol id="activity-list" class="activity-list" aria-live="polite"></ol>
+
+            <form class="comment-form" id="comment-form" novalidate>
+              <div class="comment-composer">
+                <span class="comment-avatar" id="comment-avatar" aria-hidden="true">NR</span>
+                <div class="comment-input-wrap">
+                  <textarea
+                    id="comment-input"
+                    class="comment-input"
+                    rows="2"
+                    placeholder="Add a comment…"
+                    aria-label="Write a comment"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="comment-actions" id="comment-actions" hidden>
+                <button class="btn-cancel" type="button" id="comment-cancel">Cancel</button>
+                <button class="btn-submit" type="submit">Post comment</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
