@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-[Open DIU I&E Workspace](https://diu-ie-workspace.vercel.app/)
+[https://github.com/nabid193/DIU-IE_Workspace](https://diu-ie-workspace.vercel.app/)
 
 The application is hosted on Vercel. Access to workspace features requires an authorized account.
 
