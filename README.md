@@ -1,67 +1,225 @@
 # DIU I&E Workspace
 
-A department workspace for managing projects, tasks, team accounts, comments, and notifications for the Department of Innovation & Entrepreneurship.
+# This Readme file is made with AI to look clean
 
-## Technology
+**A Centralized Departmental Management Platform**
 
-- Node.js and Express
-- PostgreSQL (Neon-compatible)
-- Express sessions stored in PostgreSQL
-- HTML, CSS, and browser JavaScript
+## Live Demo
 
-## Start from a new database
+[Open DIU I&E Workspace](https://diu-ie-workspace.vercel.app/)
 
-1. Create a **new Neon PostgreSQL project**.
-2. Copy its pooled connection string.
-3. Copy `.env.example` to `.env` in the project root.
-4. Put the new Neon connection string in `DATABASE_URL`.
-5. Generate a session secret with `openssl rand -base64 48` and put it in `SESSION_SECRET`.
-6. Keep `APP_BASE_URL=http://localhost:3000` for local development.
-7. Install dependencies with `npm install`.
-8. Create the tables with `npm run db:setup`.
-9. Create the first Admin with `npm run admin:create`.
-10. Start the app with `npm run dev`.
-11. Visit `http://localhost:3000` and check `http://localhost:3000/api/health`.
+The application is hosted on Vercel. Access to workspace features requires an authorized account.
 
-The database setup uses `CREATE TABLE IF NOT EXISTS`. It creates missing tables; it does not delete existing data.
+---
 
-## Email policy
+DIU I&E Workspace is a web-based project and task management platform designed for the Department of Innovation & Entrepreneurship at Daffodil International University.
 
-Any valid email address is accepted. A `@diu.edu.bd` address is recommended but not mandatory.
+It provides a centralized environment for managing departmental projects, assigning tasks, coordinating team activities and tracking work progress.
 
-## Password policy
+## Overview
 
-New passwords must be 8–128 characters and include:
-- At least one uppercase letter
-- At least one lowercase letter
-- At least one number
-- At least one special character
+The platform is designed around three primary account roles:
 
-Passwords are stored as scrypt hashes. They are never stored as plain text.
+- **Administrator:** Workspace administration and user management.
+- **Head:** Departmental coordination and management.
+- **Member:** Personal tasks, project collaboration and notifications.
 
-## Forgot password
+Actual permissions are determined by the application's role-based authorization system.
 
-Password reset uses a random, single-use token that expires after 30 minutes. Only a SHA-256 hash of the token is stored in PostgreSQL.
+## Key Features
 
-For local development, if Resend is not configured, a reset link for an existing active account is printed in the Terminal running the server. The link is not returned by the API.
+- Secure user authentication and session management.
+- Role-based access control.
+- Personal workspace dashboard.
+- Departmental project management.
+- Task creation, assignment and progress tracking.
+- Task comments and activity history.
+- Task viewer management.
+- Notifications and read-status management.
+- User preferences.
+- Account invitations and administrative user management.
 
-For production email delivery:
-1. Verify a sending domain with Resend.
-2. Set `RESEND_API_KEY`.
-3. Set `MAIL_FROM` to an address on the verified domain.
-4. Set `APP_BASE_URL` to the deployed HTTPS website URL.
-5. Add the variables in Vercel and redeploy.
+## Technology Stack
 
-## Admin and team accounts
+| Component | Technology |
+|---|---|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Node.js |
+| Server framework | Express.js |
+| Database | PostgreSQL |
+| Database hosting | Neon |
+| Deployment | Vercel |
+| Version control | Git and GitHub |
 
-Run `npm run admin:create` only after `npm run db:setup`. This creates the first Admin in the new database. Further users are invited from the Admin Team area.
+## Project Structure
+
+```text
+DIU-IE-Workspace/
+├── public/
+├── server/
+│   └── src/
+│       ├── server.js
+│       ├── setup-db.js
+│       ├── create-admin.js
+│       ├── auth.js
+│       ├── admin.js
+│       └── workspace.js
+├── package.json
+├── package-lock.json
+├── .env.example
+├── .gitignore
+├── README.md
+└── LICENSE
+```
+
+Additional backend modules and frontend files may be present.
+
+## Requirements
+
+- Node.js 20 or newer.
+- npm.
+- A PostgreSQL database.
+- A Neon account for hosted database deployment.
+
+## Installation and Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd DIU-IE-Workspace
+```
+
+Replace the repository URL with your actual GitHub repository address.
+
+### 2. Install dependencies
+
+```bash
+npm ci
+```
+
+### 3. Configure environment variables
+
+Create your local environment file:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and configure the required values:
+
+| Variable | Purpose |
+|---|---|
+| PORT | Local application port (3000) |
+| APP_BASE_URL | Application base URL |
+| DATABASE_URL | PostgreSQL connection string |
+| SESSION_SECRET | Secure session encryption secret |
+| RESEND_API_KEY | Email delivery API key |
+| MAIL_FROM | Verified email sender |
+
+Never commit `.env` to GitHub.
+
+### 4. Initialize the database
+
+After configuring `DATABASE_URL`, execute:
+
+```bash
+npm run db:setup
+```
+
+This initializes the application's database schema.
+
+### 5. Create the first administrator
+
+```bash
+npm run admin:create
+```
+
+Follow the terminal prompts to create the administrator account.
+
+Use a unique, strong password.
+
+### 6. Start the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+http://localhost:3000
+
+### Production start command
+
+```bash
+npm start
+```
+
+## Environment Configuration
+
+The application uses environment variables to manage database connectivity, sessions and email configuration.
+
+For production:
+
+- Use a Neon PostgreSQL connection string.
+- Generate a unique session secret.
+- Set `APP_BASE_URL` to your deployed application URL.
+- Configure Resend and a verified sender address if email-based password recovery is required.
+
+Never publish production credentials.
 
 ## Deployment
 
-The project includes a root `server.js` Express entrypoint for Vercel. Use the repository root as the Vercel Root Directory. Configure:
-- `DATABASE_URL`: Neon pooled connection string
-- `SESSION_SECRET`: a unique production secret (do not reuse the local value)
-- `APP_BASE_URL`: the deployed HTTPS URL
-- `RESEND_API_KEY` and `MAIL_FROM`: for production password-reset email
+The application is designed to work with Vercel and Neon.
 
-Never commit `.env`, `.env.save`, database passwords, API keys, or session secrets. Only `.env.example` belongs in GitHub.
+General deployment procedure:
+
+1. Push the source code to GitHub.
+2. Import the repository into Vercel.
+3. Configure the production environment variables.
+4. Connect the production Neon database.
+5. Initialize the database schema if it is a new database.
+6. Create the initial administrator if required.
+7. Deploy and test the application.
+
+Use your own database and environment variables when deploying a separate instance.
+
+## Password Recovery
+
+The application supports a password recovery workflow.
+
+For production email delivery, configure:
+
+- A Resend API key.
+- A verified sender address.
+- The correct production application URL.
+
+Without a configured email provider, production password recovery emails cannot be delivered.
+
+## Security Guidelines
+
+- Never commit passwords or API keys.
+- Keep `.env` private.
+- Use strong, unique account passwords.
+- Use secure database connections.
+- Restrict administrator privileges.
+- Avoid storing sensitive personal information in public repositories.
+- Regularly review access permissions.
+
+## Development Status
+
+DIU I&E Workspace is an actively developed project. Features, functionality and security improvements may continue as the platform evolves.
+
+Contributions, feedback and suggestions are welcome.
+
+## License
+
+See the `LICENSE` file for licensing information.
+
+## Project
+
+**DIU I&E Workspace**
+
+Daffodil International University
+
+Project maintainer: Nabid Morshed
