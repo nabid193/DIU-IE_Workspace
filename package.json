@@ -13,8 +13,10 @@
     "admin:create": "node server/src/create-admin.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
+    "@aws-sdk/s3-request-presigner": "^3.1164.0",
     "connect-pg-simple": "^10.0.0",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "express-rate-limit": "^8.7.3",
     "express-session": "^1.19.0",

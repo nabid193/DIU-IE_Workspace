@@ -93,15 +93,32 @@ async function serializeTasks(rows) {
   const [viewerResult, activityResult] = await Promise.all([
     pool.query("SELECT task_id, user_id FROM task_viewers WHERE task_id = ANY($1::uuid[])", [ids]),
     pool.query(
-      `SELECT task_id, 'event'::text AS type, actor_user_id AS author_id,
-              users.name AS author_name, COALESCE(details->>'text', event_type) AS text, created_at AS time
-         FROM task_activity LEFT JOIN users ON users.id = task_activity.actor_user_id
-        WHERE task_id = ANY($1::uuid[])
+      `SELECT
+          task_activity.task_id,
+          'event'::text AS type,
+          task_activity.actor_user_id AS author_id,
+          users.name AS author_name,
+          COALESCE(task_activity.details->>'text', task_activity.event_type) AS text,
+          task_activity.created_at AS time
+        FROM task_activity
+        LEFT JOIN users
+          ON users.id = task_activity.actor_user_id
+        WHERE task_activity.task_id = ANY($1::uuid[])
+
         UNION ALL
-       SELECT task_id, 'comment'::text AS type, author_user_id AS author_id,
-              users.name AS author_name, body AS text, created_at AS time
-         FROM comments JOIN users ON users.id = comments.author_user_id
-        WHERE task_id = ANY($1::uuid[])
+
+        SELECT
+          comments.task_id,
+          'comment'::text AS type,
+          comments.author_user_id AS author_id,
+          users.name AS author_name,
+          comments.body AS text,
+          comments.created_at AS time
+        FROM comments
+        JOIN users
+          ON users.id = comments.author_user_id
+        WHERE comments.task_id = ANY($1::uuid[])
+
         ORDER BY time ASC`,
       [ids],
     ),
